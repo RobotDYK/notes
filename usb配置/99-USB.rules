@@ -1,0 +1,16 @@
+# 规则1: 固定 /dev/ttyCH341USB0 并设置权限
+SUBSYSTEM=="tty", KERNELS=="1-2.1.1", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="ttyCH340_1", MODE="0666"
+
+# 规则2: 固定 /dev/ttyCH341USB1 并设置权限
+SUBSYSTEM=="tty", KERNELS=="1-2.1.2", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="ttyCH340_2", MODE="0666"
+
+这个是发在昆仑的
+# 规则1: 固定 /dev/ttyCH341USB0 并设置权限
+SUBSYSTEM=="tty", KERNELS=="1-2.1.1", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="ttyCH340_1", MODE="0666"
+
+# 规则2: 固定 /dev/ttyCH341USB1 并设置权限
+SUBSYSTEM=="tty", KERNELS=="1-2.3", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="ttyCH340_2", MODE="0666"
+
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d5", MODE="0666"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", MODE="0666"
+
