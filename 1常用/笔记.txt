@@ -1,0 +1,54 @@
+挂载硬盘：
+sudo blkid /dev/nvme0n1p2
+
+sudo ntfsfix /dev/nvme0n1p2
+
+sudo mount /dev/nvme0n1p2 /media/ubuntu/Data
+************************************
+
+startx
+************************************
+mujoco
+打开
+python3 -m mujoco.viewer
+
+<mujoco>
+  <compiler meshdir="../meshes/" discardvisual="false"/>
+</mujoco>
+
+*************************************
+realsense
+rvize中看模型
+ros2 launch realsense2_description view_model.launch.py 
+添加参数（对应的相机）
+ros2 launch realsense2_description view_model.launch.py model:=test_d435_camera.urdf.xacro
+
+确认相机坐标
+ros2 launch realsense2_camera rs_launch.py
+ros2 topic echo /camera/camera/color/image_raw |grep id
+
+从base_link到camera_link的变换
+（从 base_link 到 camera_link 的变换表示的是 base_link 坐标系相对于 camera_link 坐标系的变换，即 camera_link 如何在 base_link 的框架下表示。）
+ros2 run tf2_tools tf2_echo base_link camera_link
+ros2 run tf2_tools tf2_echo base_link camera_color_optical_frame
+或者
+ros2 run tf2_ros tf2_echo base_link camera_color_optical_frame
+ros2 run tf2_ros tf2_echo Link7 xiangji
+
+查看包是否安装
+ros2 pkg list | grep tf2_tools
+
+*************************************************
+libstdc++.so.6: version `GLIBCXX_3.4.32' not found
+
+ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /home/ubuntu/anaconda3/envs/py39/bin/../lib/libstdc++.so.6
+ pip install "numpy<2"
+ 
+ 
+ros2 run tf2_tools view_frames
+
+ros2 launch realsense2_description view_model.launch.py model:=test_d435_camera.urdf.xacro
+
+sudo mv 文件名 /home
+
+

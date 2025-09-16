@@ -1,0 +1,8 @@
+sudo dpkg -i 文件.deb
+
+解压.7z格式文件，
+sudo apt update
+sudo apt install p7zip-full
+7z x BrainCo_Hand_Test_Tool_linux_9f3f_v1.1.5_20240729.7z
+指定路径：使用 -o 参数（注意无空格）
+7z x BrainCo_Hand_Test_Tool_linux_9f3f_v1.1.5_20240729.7z -o/path/to/destination

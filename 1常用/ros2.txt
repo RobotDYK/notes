@@ -1,0 +1,120 @@
+
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src/
+ros2 pkg create robot_arm --build-type ament_cmake
+
+rm -rf build install log
+colcon build
+colcon build --packages-select robot_arm
+
+
+通过配置 ROS_DOMAIN_ID，可以将 ROS 2 节点隔离在不同的通信域中。只有具有相同 ROS_DOMAIN_ID 的节点才能相互通信。
+echo "export ROS_DOMAIN_ID=1" >> ~/.bashrc
+source ~/.bashrc
+
+
+check_urdf 0720250212-0.1.urdf 
+
+
+*************************
+1. 创建 ROS 2 包
+ros2 pkg create --build-type ament_python robot_arm_control
+
+package.xml（用于声明包依赖）
+setup.py（用于安装包）
+robot_arm_control 文件夹（包含代码的目录）
+
+2. 安装依赖（没有也可以）
+编辑 package.xml 并添加以下依赖：
+<depend>rclpy</depend>
+<depend>sensor_msgs</depend>
+<depend>std_msgs</depend>
+然后运行以下命令以确保所有依赖已安装：
+rosdep install --from-paths src --ignore-src -r -y
+
+
+3. 编写 Python 脚本
+在 robot_arm_control 文件夹中创建一个名为 joint_state_publisher.py 的脚本
+
+4. 修改 setup.py
+在 setup.py 中添加脚本入口点：
+from setuptools import setup
+
+package_name = 'robot_arm_control'
+
+setup(
+    name=package_name,
+    version='0.0.0',
+    packages=[package_name],
+    py_modules=[],
+    install_requires=['setuptools'],
+    zip_safe=True,
+    maintainer='DYK',
+    maintainer_email='your.email@example.com',
+    description='Control robot arm via joint states',
+    license='Apache License 2.0',
+    tests_require=['pytest'],
+    entry_points={
+        'console_scripts': [
+            'joint_state_publisher = robot_arm_control.joint_state_publisher:main',
+        ],
+    },
+)
+
+5. 构建并运行包
+回到工作区根目录，构建包并运行：
+colcon build
+source install/setup.bash
+ros2 run robot_arm_control joint_state_publisher
+
+如果
+ubuntu@ubuntu-dyk:~/robot_arm_control$ colcon build
+Starting >>> robot_arm_control
+[0.355s] WARNING:colcon.colcon_ros.task.ament_python.build:Package 'robot_arm_control' doesn't explicitly install a marker in the package index (colcon-ros currently does it implicitly but that fallback will be removed in the future)
+[0.355s] WARNING:colcon.colcon_ros.task.ament_python.build:Package 'robot_arm_control' doesn't explicitly install the 'package.xml' file (colcon-ros currently does it implicitly but that fallback will be removed in the future)
+Finished <<< robot_arm_control [0.52s]          
+
+Summary: 1 package finished [0.67s]
+
+在 setup.py 的 setup() 中显式安装标记文件。修改 setup.py，添加以下内容：
+data_files=[
+    ('share/ament_index/resource_index/packages',
+     ['resource/robot_arm_control']),
+    ('share/robot_arm_control', ['package.xml']),
+],
+
+
+完整的 setup.py 示例：
+from setuptools import setup
+
+package_name = 'robot_arm_control'
+
+setup(
+    name=package_name,
+    version='0.0.0',
+    packages=[package_name],
+    py_modules=[],
+    install_requires=['setuptools'],
+    zip_safe=True,
+    maintainer='Your Name',
+    maintainer_email='your.email@example.com',
+    description='Control robot arm via joint states',
+    license='Apache License 2.0',
+    tests_require=['pytest'],
+    entry_points={
+        'console_scripts': [
+            'joint_state_publisher = robot_arm_control.joint_state_publisher:main',
+        ],
+    },
+    data_files=[
+        ('share/ament_index/resource_index/packages',
+         ['resource/robot_arm_control']),
+        ('share/robot_arm_control', ['package.xml']),
+    ],
+)
+
+此外，创建一个资源文件夹并添加标记文件：
+
+mkdir -p resource
+touch resource/robot_arm_control
+

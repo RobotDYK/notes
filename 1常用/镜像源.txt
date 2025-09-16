@@ -1,0 +1,7 @@
+pip3 install numpy -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+清华大学TUNA镜像源： https://pypi.tuna.tsinghua.edu.cn/simple
+阿里云镜像源： http://mirrors.aliyun.com/pypi/simple/
+中国科学技术大学镜像源： https://mirrors.ustc.edu.cn/pypi/simple/
+华为云镜像源： https://repo.huaweicloud.com/repository/pypi/simple/
+腾讯云镜像源：https://mirrors.cloud.tencent.com/pypi/simple/
