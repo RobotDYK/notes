@@ -1,0 +1,5 @@
+直接使用 sudo apt install firefox 安装时，会使用snap来安装，经常因为网络不好而卡死，下面使用官方的源来安装deb版本的firefox
+
+sudo add-apt-repository ppa:mozillateam/ppa
+sudo apt update
+sudo apt install firefox-esr

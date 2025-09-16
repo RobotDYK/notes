@@ -1,0 +1,27 @@
+1、卸载fcitx5相关包
+如果系统安装了fcitx5，需要先进行卸载;
+
+找到Region & Language，然后点击Manages Installed Languages，查看下列表Keyboard input method system
+
+如果没看到fcitx5，可以忽略这步骤，进入第二步
+
+系统中存在fcitx5和fcitx的冲突，是两个不同的输入法框架，导致无法安装 fcitx-googlepinyin。
+
+运行以下命令卸载与 fcitx5 相关的包：
+sudo apt remove fcitx5-chinese-addons-data fcitx5-module-chttrans fcitx5-module-fullwidth fcitx5-module-punctuation fcitx5-pinyin fcitx5-table
+
+2、安装谷歌拼音
+sudo apt update
+sudo apt install fcitx
+sudo apt install fcitx-googlepinyin
+
+3、配置和使用谷歌拼音
+安装完成后，需要配置输入法：
+
+在系统设置中，找到输入法设置。
+
+添加 fcitx4 作为默认输入法配置项目，然后重启电脑。
+
+最后添加 Google Pinyin 输入法到fcitx4中
+
+https://blog.csdn.net/qq_41204464/article/details/147021814
